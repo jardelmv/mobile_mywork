@@ -17,6 +17,7 @@
  * under the License.
  */
 var app = {
+    database: null,
     // Application Constructor
     initialize: function() {
         this.bindEvents();
@@ -62,24 +63,24 @@ var app = {
     testPouchAllDocs: function() {
       console.log('Running testPouchAllDocs')
       var date = new Date()
-      var testPouch = PouchDB('test') //+ date.getTime())
-      testPouch.post({title: '1'}, function(err, res) {
+      app.database = PouchDB('test') //+ date.getTime())
+      app.database.post({title: '1'}, function(err, res) {
         console.log('Pouch post 1:')
         console.log(JSON.stringify(res))
         console.log(err)
-        testPouch.get(res.id, function(err, res) {
+        app.database.get(res.id, function(err, res) {
           console.log('Pouch get 1:')
           console.log(JSON.stringify(res))
           console.log(err)
-          testPouch.post({title: '2'}, function(err, res) {
+          app.database.post({title: '2'}, function(err, res) {
             console.log('Pouch post 2:')
             console.log(JSON.stringify(res))
             console.log(err)
-            testPouch.get(res.id, function(err, res) {
+            app.database.get(res.id, function(err, res) {
               console.log('Pouch get 2:')
               console.log(JSON.stringify(res))
               console.log(err)
-              testPouch.allDocs({include_docs: true}, function(err, response) {
+              app.database.allDocs({include_docs: true}, function(err, response) {
                 console.log('Pouch allDocs:')
                 console.log(JSON.stringify(response))
                 console.log(err)
