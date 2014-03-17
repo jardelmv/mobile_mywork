@@ -18,6 +18,7 @@
  */
 var app = {
     database: null,
+    ctrl: null,
     // Application Constructor
     initialize: function() {
         this.bindEvents();
@@ -46,6 +47,8 @@ var app = {
         app.receivedEvent('deviceready');
         app.onQueryMobileConfigure();
         app.testPouchAllDocs();
+        app.ctrl = controller;
+        app.ctrl.init();
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
