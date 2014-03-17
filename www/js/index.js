@@ -17,8 +17,6 @@
  * under the License.
  */
 var app = {
-    database: null,
-    ctrl: null,
     // Application Constructor
     initialize: function() {
         this.bindEvents();
@@ -44,53 +42,6 @@ var app = {
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicity call 'app.receivedEvent(...);'
     onDeviceReady: function() {
-        app.receivedEvent('deviceready');
         app.onQueryMobileConfigure();
-        app.testPouchAllDocs();
-        app.ctrl = controller;
-        app.ctrl.init();
-    },
-    // Update DOM on a Received Event
-    receivedEvent: function(id) {
-        /*
-        var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('.received');
-
-        listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
-        */
-        console.log('Received Event: ' + id);
-    },
-
-    testPouchAllDocs: function() {
-      console.log('Running testPouchAllDocs')
-      var date = new Date()
-      app.database = PouchDB('test') //+ date.getTime())
-      app.database.post({title: '1'}, function(err, res) {
-        console.log('Pouch post 1:')
-        console.log(JSON.stringify(res))
-        console.log(err)
-        app.database.get(res.id, function(err, res) {
-          console.log('Pouch get 1:')
-          console.log(JSON.stringify(res))
-          console.log(err)
-          app.database.post({title: '2'}, function(err, res) {
-            console.log('Pouch post 2:')
-            console.log(JSON.stringify(res))
-            console.log(err)
-            app.database.get(res.id, function(err, res) {
-              console.log('Pouch get 2:')
-              console.log(JSON.stringify(res))
-              console.log(err)
-              app.database.allDocs({include_docs: true}, function(err, response) {
-                console.log('Pouch allDocs:')
-                console.log(JSON.stringify(response))
-                console.log(err)
-              });
-            })
-          })
-        })
-      })
     }
 };
