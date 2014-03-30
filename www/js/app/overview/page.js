@@ -2,24 +2,9 @@
 
 	$(document).on("pageinit", "#overview", function(e) {
 		console.log("pageinit #overview");
-		
+		$("removeAllTasks").button();
+
 		var taskManager = TaskManager.getInstance();
-
-		$("#removeAllTasks").on("tap", function() {
-			e.preventDefault();
-
-			taskManager.removeAllTasks(function (err) {
-				console.log("ERR>>>" + JSON.stringify(err));
-				showTaskList();
-			});
-		});
-
-
-		$(document).on("pageshow", "#overview", function(e) {
-			e.preventDefault();
-			showTaskList();
-		});
-
 
 		function showTaskList() {
 			taskManager.allTasks(function(err, tasks) {
@@ -29,16 +14,6 @@
 					$("<li>No tasks available</li>").appendTo("#taskListView");
 				} else {
 					tasks.rows.forEach(function(task) {
-						/*
-						<li>
-                        <a href="#task">
-                            <h2>Stephen Weber</h2>
-                            <p><strong>You've been invited to a meeting at Filament Group in Boston, MA</strong></p>
-                            <p>Hey Stephen, if you're available at 10am tomorrow, we've got a meeting with the jQuery team.</p>
-                            <p class="ui-li-aside"><strong>6:24</strong>PM</p>
-                        </a>
-                    </li>
-						*/
 						$("<li><a href='#task?taskId=" + task.id + "'>" +  task.key.title + "</a></li>").appendTo("#taskListView");
 					});
 				}
@@ -46,5 +21,44 @@
 				$("#taskListView").listview('refresh');
 			});
 		};
+
+		$("#remove_all_tasks_btn").on("click", function(e) {
+			console.log("remove all task clicked");
+			e.preventDefault();
+			e.stopPropagation();
+
+			taskManager.removeAllTasks(function (err) {
+				console.log("ERR>>>" + JSON.stringify(err));
+				showTaskList();
+			});
+		});
+
+		$("#new_task_btn").on("click", function(e) {
+			console.log("new task button clicked.");
+			e.preventDefault();
+			e.stopPropagation();
+
+			$.mobile.changePage("#task");
+		});
+
+		$("#sync_btn").off("click").on("click", function(e) {
+			console.log("sync button clicked.");
+			e.preventDefault();
+			e.stopPropagation();
+
+			taskManager.syncTasks(function() {
+				showTaskList();
+			});
+		});
+
+		$(document).on("pageshow", "#overview", function(e) {
+			console.log("show page #overview");
+			e.preventDefault();
+			//e.stopPropagation();
+			$.mobile.pageData = null;
+			showTaskList();
+		});
+
+
 	});
 })();

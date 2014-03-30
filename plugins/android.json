@@ -7,6 +7,9 @@
     "installed_plugins": {
         "org.apache.cordova.console": {
             "PACKAGE_NAME": "de.fiveminds.mywork"
+        },
+        "org.apache.cordova.statusbar": {
+            "PACKAGE_NAME": "de.fiveminds.mywork"
         }
     },
     "dependent_plugins": {}

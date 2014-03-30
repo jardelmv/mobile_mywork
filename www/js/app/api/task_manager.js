@@ -2,7 +2,8 @@ var TaskManager = (function() {
 	var instance;
 
 	function createInstance() {
-		var pouchDB = PouchDB("mywork");
+		var dbName = "mywork";
+		var pouchDB = PouchDB(dbName);
 
 		return {
 			allTasks: function(callback) {
@@ -16,7 +17,7 @@ var TaskManager = (function() {
 			},
 
 			getTask: function(taskId, callback) {
-				pouchDB.get(task, callback);
+				pouchDB.get(taskId, callback);
 			},
 
 			updateTask: function(title, desc, taskId, callback) {
@@ -83,6 +84,39 @@ var TaskManager = (function() {
 					console.log(JSON.stringify(response));
 					console.log(err);
 				});
+			},
+
+			syncTasks: function(callback) {
+				console.log("start sync tasks");
+
+				var remoteDB = "http://192.168.2.2:5984/mywork_dev";
+
+				var pullComplete = function(err, res) {
+					console.log("done pull");
+					console.log(res);
+
+					if (err) {
+						console.log("err");
+						console.log(err);
+					} else {
+						if (callback) {
+							callback(null);
+						}
+					}
+				};
+
+				var pushComplete = function(err, res) {
+					console.log("done push");
+					console.log(res);
+
+					if (err) {
+						console.log(err);
+					} else {
+						pouchDB.replicate.from(remoteDB, {complete: pullComplete});
+					}
+				};
+
+				pouchDB.replicate.to(remoteDB, {complete: pushComplete});
 			}
 		}; // return
 	}; // createInstance

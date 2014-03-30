@@ -34,37 +34,12 @@
 
             <div data-role="header" role="banner">
                 <h1>Overview</h1>
-                <a href="#task" data-icon="plus" class="ui-btn-right">&nbsp;</a>
+                <a href="#" data-icon="forward" class="ui-btn-left" id="sync_btn">Sync</a>
+                <a href="#" data-icon="plus" class="ui-btn-right" id="new_task_btn">New</a>
             </div><!-- /header -->
 
             <div data-role="content">   
                 <ul data-role="listview" data-inset="true" id="taskListView">
-                    <li data-role="list-divider">Friday, October 8, 2010 <span class="ui-li-count">2</span></li> 
-                    <li>
-                        <a href="#task">
-                            <h2>Stephen Weber</h2>
-                            <p><strong>You've been invited to a meeting at Filament Group in Boston, MA</strong></p>
-                            <p>Hey Stephen, if you're available at 10am tomorrow, we've got a meeting with the jQuery team.</p>
-                            <p class="ui-li-aside"><strong>6:24</strong>PM</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#task">
-                            <h2>jQuery Team</h2>
-                            <p><strong>Boston Conference Planning</strong></p>
-                            <p>In preparation for the upcoming conference in Boston, we need to start gathering a list of sponsors and speakers.</p>
-                            <p class="ui-li-aside"><strong>9:18</strong>AM</p>
-                        </a>
-                    </li>
-                    <li data-role="list-divider">Thursday, October 7, 2010 <span class="ui-li-count">1</span></li>
-                    <li>
-                        <a href="#task">
-                            <h2>Avery Walker</h2>
-                            <p><strong>Re: Dinner Tonight</strong></p>
-                            <p>Sure, let's plan on meeting at Highland Kitchen at 8:00 tonight. Can't wait!</p>
-                            <p class="ui-li-aside"><strong>4:48</strong>PM</p>
-                        </a>
-                    </li>
                 </ul>
             </div><!-- /content -->
 
@@ -82,22 +57,41 @@
             </div>
 
             <div data-role="content">
+                <input type="hidden" name="taskId" id="taskId" />
+                <div class="ui-field-contain">
+                    <label for="taskTitle">Title:</label>
+                    <input type="text" name="taskTitle" id="taskTitle" placeholder="Task title" value="" />
+                </div>
+                <div class="ui-field-contain">
+                    <label for="taskDesc">Description:</label> 
+                    <textarea cols="40" rows="8" name="taskDesc" id="taskDesc"></textarea>
+                </div>
+                <button class="ui-btn" id="save_btn" data-role="button">Speichern</button>
+                <hr />
+                <button class="ui-btn" id="close_btn" data-role="button">Schließen</button>
+            </div>
             </div>
 
-            <div data-role="footer">
+            <div data-role="footer" role="contentinfo" data-position="fixed">
                 <h4>&copy; 2014</h4>
             </div>
         </div>
 
         <!-- phonegap -->
-        <script type="text/javascript" src="phonegap.js"></script>
+        <script type="text/javascript" src="cordova.js"></script>
+
         
         <!-- libs -->
         <script type="text/javascript" src="js/libs/jquery.js"></script>
         <script type="text/javascript" src="js/libs/jquery.mobile.js"></script>
+
+        <script type="text/javascript" src="js/libs/jqm.page.params.js"></script>
         <script type="text/javascript" src="js/libs/pouchdb.js"></script>
+        <!-- <script type="text/javascript" src="js/libs/fastclick.js"></script> -->
         
         <!-- application-->
+        <script type="text/javascript" src="js/app/common_page.js"></script>
+        <script type="text/javascript" src="js/app/task/page.js"></script>
         <script type="text/javascript" src="js/app/overview/page.js"></script>
         <script type="text/javascript" src="js/app/task/page.js"></script>
 

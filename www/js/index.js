@@ -34,6 +34,7 @@ var app = {
     onQueryMobileConfigure: function() {
         $.mobile.pushStateEnabled = false;
         $.support.cors = true;
+        StatusBar.hide();
         console.log('onQueryMobileConfigure');
     },
 
